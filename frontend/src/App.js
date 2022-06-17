@@ -6,12 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
-import RequireAuth from './components/RequireAuth';
-
-const ROLES = {
-  'User' : 2001,
-  'Admin' : 5150,
-}
+import RegisterAdmin from './pages/RegisterAdmin';
 
 function App() {
   return (
@@ -20,19 +15,14 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-              {/* public routes */}
-              <Route path='/login' element={<Login/>}></Route>
-              <Route path='/register' element={<Register/>}></Route>  
-
-              {/* Protected routes */}
-              <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
-                <Route path='/' element={<Dashboard />}></Route>
-                <Route path='/createSchool' element={<CreateSchool/>}></Route>
-                <Route path='/registerStudent' element={<RegisterStudent/>}></Route>
-              </Route>
-              <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
-                <Route path='/getUsers' element={<AdminDashboard />}></Route>
-              </Route>
+            <Route path='/' element={<Dashboard />}></Route>
+            <Route path='/admin' element={<AdminDashboard />}></Route>
+            <Route path='/createSchool' element={<CreateSchool/>}></Route>
+            <Route path='/registerStudent' element={<RegisterStudent/>}></Route>
+            <Route path='/register' element={<Register/>}></Route>  
+            <Route path='/login' element={<Login/>}></Route>
+            {/* This route needs to be protected */}
+            <Route path='/registerAdmin' element={<RegisterAdmin/>}></Route>
           </Routes>
         </div>
       </Router>

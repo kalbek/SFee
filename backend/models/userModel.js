@@ -6,6 +6,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a name'],
     },
+    secretKey: {
+      type: String,
+      // default: '1111',
+      // required: [true, 'Secret admin code is required'],
+    },
+    roles: {
+      type: Number,
+    },
     email: {
       type: String,
       required: [true, 'Please add an email'],

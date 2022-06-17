@@ -346,7 +346,7 @@ h3 {
   color: limegreen;
   margin-left: 0.25rem;
 }
-#idle-name, #idle-email, #idle-password, #idle-password2 {
+#idle-name, #idle-email, #idle-password, #idle-password2, #idle-secretkey {
   color: #000;
   margin-left: 0.25rem;
   border: 1px solid #000;

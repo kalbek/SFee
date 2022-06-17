@@ -10,3 +10,9 @@ cd frontend  =>
 npm i react-router-dom
 npm i react-icons
 npm i axios
+
+
+
+
+// 404 page creation => DaveGray NodeJsTutorial Part 08: 
+// Generating random crypto line : DaveGray NodeJsTutorial Part 09: t:06:00

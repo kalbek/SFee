@@ -1,17 +1,11 @@
-import { useState, useEffect, useContext } from 'react'
-import AuthContext from '../context/AuthProvider'
+import { useState, useEffect } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
-import useAuth from '../hooks/useAuth'
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  })
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -28,7 +22,6 @@ function Login() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { setAuth } = useAuth();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -42,11 +35,21 @@ function Login() {
     }
 
     if (isSuccess || user) {
-      navigate('/')
+      const userRole = {...user}
+      // console.log(userRole.roles)
+      // console.log(userRole.roles === 5150)
+      if (userRole.roles === 5150)
+        navigate('/admin')
+      else {
+        navigate('/')
+      }
+      // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
     }
 
+
+
     dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  }, [ user, isError, isSuccess, message, navigate, dispatch])
 
   // validate email
   useEffect(() => {
@@ -65,7 +68,6 @@ function Login() {
       email,
       password,
     }
-
     dispatch(login(userData))
   }
   

@@ -37,6 +37,18 @@ const getUsers = async (token) => {
 
     return response.data
 }
+
+// get list of registered users
+const getUser = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        } 
+    }    
+    const response = await axios.get(API_URL, config)
+
+    return response.data
+}
 // Logout user (you can use a server and set up http cookie)
 const logout = () => {
     localStorage.removeItem('user')
@@ -47,6 +59,7 @@ const authService = {
     logout,
     login,
     getUsers,
+    getUser,
 }
 
 export default authService
