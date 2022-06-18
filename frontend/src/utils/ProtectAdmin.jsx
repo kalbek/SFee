@@ -2,21 +2,22 @@ import {Outlet, Navigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const ProtectAdmin = () => {
-    const { user } = useSelector((state) => state.auth)
-    // console.log(`user: ${user}`)
-    // console.log(`user role: ${user.roles}`)
-    // let userRole = user.roles;
-    // console.log(userRole)
-    const userRole = (user ? user.roles : 5555)
-    console.log(`admin route protected`)
-    
+  const { user } = useSelector((state) => state.auth)
+    let role;
+    if (user)
+      role = Object.values(user);
+    // console.log('role === 5150' + role[3] === 5150)
     return (
       <>
-        { 
-          // if user does not come from register page
-
-          (userRole === 5150 || !user  ? <Outlet/> : <Navigate to="/unauthorized" />)
-         }
+        
+       { 
+       !user 
+            ? <Navigate to="/login" />
+            : user && role[3] === 5150  
+                ? <Outlet/> 
+                : <Navigate to="/unauthorized" />
+           }
+         
       </>
   )
 }

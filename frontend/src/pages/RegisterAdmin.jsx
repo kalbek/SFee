@@ -51,8 +51,8 @@ function RegisterAdmin() {
       validName && validPwd && validEmail && validMatch ? true : false;
     return validity;
   };
-  // Update error message status
 
+  // Update error message status
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ function RegisterAdmin() {
   useEffect(() => {
     if (isError) setMessage(message);
     if (isSuccess || user) {
-      navigate("/");
+      navigate('/admindashboard')
     }
   }, [user, isError, isSuccess, message, navigate]);
 
@@ -131,16 +131,22 @@ function RegisterAdmin() {
     e.preventDefault();
     setMessage(message);
     // here
+    // let secretKey;
+    // const Roles = (secretKey === process.env.ADMIN_SECRET_KEY ?  5150 : 2002)
     try {
       const userData = {
         name,
         email,
         password,
+        roles: 5150,
         secretKey,
       };
       if (allFormFieldsAreValid()) {
         dispatch(register(userData));
         setSuccess(true);
+        for (const [key, value] of Object.entries(user)) {
+          console.log(` ${key}: ${value}`);
+        }
       }
     } catch (err) {
       if (!err?.response) {

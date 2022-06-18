@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../components/Spinner'
-// import {toast} from 'react-toastify'
 import { reset, getSchools } from '../features/schools/schoolSlice'
 import {  getUsers } from '../features/auth/authSlice'
 import UserItem from '../components/UserItem'
@@ -15,7 +14,6 @@ function AdminDashboard() {
   useEffect(() => {
     if (isError){
       if (!user) {
-        // toast.error(`you need to login!`)
       }
     }
     if (!user) {
@@ -45,7 +43,7 @@ function AdminDashboard() {
         }
         <h1>Admin Dashboard</h1>
       </section>
-      <section className="content">
+      {/* <section className="content">
         {users && users.length > 0 ? (
           <div className="schools">
             {users.map((user) => (
@@ -53,7 +51,7 @@ function AdminDashboard() {
             ))}
           </div>
         ) : (<h3>No users found</h3>)}
-      </section> 
+      </section>  */}
     </>
   )
 }

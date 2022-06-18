@@ -36,6 +36,7 @@ function Login() {
 
     if (isSuccess || user) {
       const userRole = {...user}
+      // console.log("user roles.roles: " + userRole.roles)
       if (userRole.roles === 5150)
         navigate('/admindashboard')
       else {
@@ -43,7 +44,6 @@ function Login() {
       }
       // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
     }
-
     dispatch(reset())
   }, [ user, isError, isSuccess, message, navigate, dispatch])
 
@@ -66,7 +66,6 @@ function Login() {
     }
     dispatch(login(userData))
   }
-  
 
   if (isLoading) {
     return <Spinner />
@@ -81,7 +80,6 @@ function Login() {
         </h1>
         {/* <p>Please Login</p> */}
       </section>
-
       <section className='form'>
         <form onSubmit={onSubmit}>
           <div className="form-group">

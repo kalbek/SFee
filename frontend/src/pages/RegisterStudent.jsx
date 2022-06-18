@@ -36,7 +36,7 @@ function RegisterStudent() {
     
     useEffect(() => {
       if (isError){
-        console.log()
+        // console.log()
       }
 
       if (!user) {
@@ -89,7 +89,7 @@ function RegisterStudent() {
             <div className="form-group">
                   {school}
                 <select  onChange={handleSchoolSelection}>
-                  {console.log(school)}
+                  {/* {console.log(school)} */}
                   {schools.map((school) =>{
                     <h4>
                       {school}

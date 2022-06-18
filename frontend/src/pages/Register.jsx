@@ -74,14 +74,15 @@ function Register() {
 
     if (isSuccess || user) {
       const userRole = {...user}
-      if (userRole.roles === 5150)
-        navigate('/admindashboard')
-      else {
-        navigate('/')
-      }
+      // console.log("user roles.roles: " + userRole.roles)
+      // if (userRole.roles === 5150)
+      //   navigate('/admindashboard')
+      // else {
+      //   navigate('/')
+      // }
       // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
+      navigate('/')
     }
-
     dispatch(reset())
   }, [ user, isError, isSuccess, message, navigate, dispatch])
   // Resetting submit error message
@@ -131,7 +132,6 @@ function Register() {
       ? setErrMsg(matchErrMsg)
       : setErrMsg("");
   }, [password2]);
-
   
   // display guiding error messages
   function displayErrorMessage() {
@@ -141,19 +141,29 @@ function Register() {
     if (matchFocus && !validMatch && password2) return matchErrMsg;
   }
 
+  // track register success
+  useEffect(() => {
+
+  }, [isSuccess])
+
   const onSubmit = (e) => {
     e.preventDefault();
     setMessage(message);
     // here
     try {
+      const secretKey = 'yitopretrtyio0594-yopiyr0954';
       const userData = {
         name,
         email,
         password,
+        roles: 2001,
+        secretKey,
       };
       if (allFormFieldsAreValid()) {
         dispatch(register(userData));
         setSuccess(true);
+        const userRole = {...user}
+        // console.log("user roles.roles: " + userRole.roles)
       }
     } catch (err) {
       if (!err?.response) {
