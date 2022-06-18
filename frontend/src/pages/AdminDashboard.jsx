@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner'
 import { reset, getSchools } from '../features/schools/schoolSlice'
 import {  getUsers } from '../features/auth/authSlice'
 import UserItem from '../components/UserItem'
-function Dashboard() {
+function AdminDashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -58,4 +58,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default AdminDashboard

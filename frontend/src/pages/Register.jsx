@@ -57,13 +57,33 @@ function Register() {
     (state) => state.auth
   );
   // Setting success and error messages on submit
-  useEffect(() => {
-    if (isError) setMessage(message);
-    if (isSuccess || user) {
-      navigate("/");
-    }
-  }, [user, isError, isSuccess, message, navigate]);
+  // useEffect(() => {
+  //   if (isError) setMessage(message);
+  //   if (isSuccess || user) {
+  //     navigate("/");
+  //   }
+  // }, [user, isError, isSuccess, message, navigate]);
 
+  // handle register
+  useEffect(() => {
+    if (isError) {
+      setMessage(message)
+      setErrMsg(message)
+      // toast.error(message)
+    }
+
+    if (isSuccess || user) {
+      const userRole = {...user}
+      if (userRole.roles === 5150)
+        navigate('/admindashboard')
+      else {
+        navigate('/')
+      }
+      // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
+    }
+
+    dispatch(reset())
+  }, [ user, isError, isSuccess, message, navigate, dispatch])
   // Resetting submit error message
   useEffect(() => {
     if (nameFocus || emailFocus || pwdFocus || matchFocus) setMessage("");
@@ -112,6 +132,7 @@ function Register() {
       : setErrMsg("");
   }, [password2]);
 
+  
   // display guiding error messages
   function displayErrorMessage() {
     if (nameFocus && !validName && name) return userNameErrMsg;

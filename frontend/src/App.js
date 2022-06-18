@@ -7,6 +7,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import RegisterAdmin from './pages/RegisterAdmin';
+import ProtectAdmin from './utils/ProtectAdmin';
+import ProtectUsers from './utils/ProtectUsers';
+import Unauthorized from './pages/Unauthorized';
 
 function App() {
   return (
@@ -15,14 +18,19 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/' element={<Dashboard />}></Route>
-            <Route path='/admin' element={<AdminDashboard />}></Route>
-            <Route path='/createSchool' element={<CreateSchool/>}></Route>
-            <Route path='/registerStudent' element={<RegisterStudent/>}></Route>
-            <Route path='/register' element={<Register/>}></Route>  
             <Route path='/login' element={<Login/>}></Route>
-            {/* This route needs to be protected */}
+            <Route path='/unauthorized' element={<Unauthorized/>}></Route>
             <Route path='/registerAdmin' element={<RegisterAdmin/>}></Route>
+            {/* This routes needs to be protected */}
+              <Route path='/' element={<Dashboard />}></Route>
+              <Route path='/createSchool' element={<CreateSchool/>}></Route>
+              <Route path='/registerStudent' element={<RegisterStudent/>}></Route>
+              <Route path='/register' element={<Register/>}></Route>  
+              <Route path='/adminDashboard' element={<AdminDashboard/>} />
+            <Route element={< ProtectUsers />} >
+            </Route>
+            <Route element={<ProtectAdmin /> } >
+            </Route >
           </Routes>
         </div>
       </Router>

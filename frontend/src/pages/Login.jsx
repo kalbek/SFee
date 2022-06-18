@@ -36,17 +36,13 @@ function Login() {
 
     if (isSuccess || user) {
       const userRole = {...user}
-      // console.log(userRole.roles)
-      // console.log(userRole.roles === 5150)
       if (userRole.roles === 5150)
-        navigate('/admin')
+        navigate('/admindashboard')
       else {
         navigate('/')
       }
       // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
     }
-
-
 
     dispatch(reset())
   }, [ user, isError, isSuccess, message, navigate, dispatch])
