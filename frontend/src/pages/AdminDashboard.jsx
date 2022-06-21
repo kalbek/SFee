@@ -38,20 +38,20 @@ function AdminDashboard() {
       <> 
       <section>
         {user ? 
-          (<h4 className='user-name'>Welcome Admin</h4>) : <></>
-          // (<h4 className='user-name'>Welcome { user && user.name.charAt(0).toUpperCase()+ user.name.slice(1)}</h4>) : <></>
+          // (<h4 className='user-name'>Welcome Admin</h4>) : <></>
+          (<h4 className='user-name'>Welcome { user && user.name.charAt(0).toUpperCase()+ user.name.slice(1)}</h4>) : <></>
         }
         <h1>Admin Dashboard</h1>
       </section>
-      {/* <section className="content">
-        {users && users.length > 0 ? (
+      <section className="content">
+        {user && user.length > 0 ? (
           <div className="schools">
             {users.map((user) => (
                 <UserItem key={user._id} user={user}/>
             ))}
           </div>
         ) : (<h3>No users found</h3>)}
-      </section>  */}
+      </section> 
     </>
   )
 }

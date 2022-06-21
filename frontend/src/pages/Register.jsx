@@ -69,18 +69,9 @@ function Register() {
     if (isError) {
       setMessage(message)
       setErrMsg(message)
-      // toast.error(message)
     }
 
     if (isSuccess || user) {
-      const userRole = {...user}
-      // console.log("user roles.roles: " + userRole.roles)
-      // if (userRole.roles === 5150)
-      //   navigate('/admindashboard')
-      // else {
-      //   navigate('/')
-      // }
-      // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
       navigate('/')
     }
     dispatch(reset())
@@ -151,19 +142,16 @@ function Register() {
     setMessage(message);
     // here
     try {
-      const secretKey = 'yitopretrtyio0594-yopiyr0954';
       const userData = {
         name,
         email,
         password,
         roles: 2001,
-        secretKey,
+        secretKey: 'yitopretrtyio0594-yopiyr0954',
       };
       if (allFormFieldsAreValid()) {
         dispatch(register(userData));
         setSuccess(true);
-        const userRole = {...user}
-        // console.log("user roles.roles: " + userRole.roles)
       }
     } catch (err) {
       if (!err?.response) {

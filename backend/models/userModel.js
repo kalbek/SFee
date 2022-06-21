@@ -8,8 +8,7 @@ const userSchema = mongoose.Schema(
     },
     secretKey: {
       type: String,
-      // default: '1111',
-      // required: [true, 'Secret admin code is required'],
+      default: 'sDoVwRLhojZxeyQICmqhjPulH4tTNviziSu'
     },
     roles: {
       type: Number,

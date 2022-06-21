@@ -1,4 +1,4 @@
-import {Outlet, Navigate} from 'react-router-dom'
+import {Outlet, Navigate, useLocation} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const ProtectUsers = () => {
@@ -6,12 +6,14 @@ const ProtectUsers = () => {
   let role;
   if (user)
     role = Object.values(user);
+  const location = useLocation();
   // console.log('role === 2001: ' + role[3] === 2001)
+  // console.log(user)
   return (
     <>
-      { 
+      {   
         !user 
-        ? <Navigate to="/login" />
+        ? <Navigate to="/login" state={{ from: location }} replace/>
         : user && role[3] === 2001  
             ? <Outlet/> 
             : <Navigate to="/unauthorized" />

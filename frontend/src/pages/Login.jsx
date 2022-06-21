@@ -115,8 +115,7 @@ function Login() {
           <p
             id="errMsg"
             className={errMsg ? "errMsg" : "offscreen"}
-            aria-live="assertive"
-          >
+            aria-live="assertive">
             {" "}
             {someMessage}{" "}
           </p>

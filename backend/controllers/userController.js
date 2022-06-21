@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
-const { use } = require('../routes/userRoutes')
 
 // @desc    Register new user
 // @route   POST /api/users
@@ -30,37 +29,88 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Hash password
     const salt = await bcrypt.genSalt(10)
-    const saltSK = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     // Assign admin role for specific email
-    const Roles = (secretKey === process.env.ADMIN_SECRET_KEY ?  5150 : 2001)
-    // const Roles = ( secretKey === process.env.ADMIN_SECRET_KEY ?  5150 : 2001)
-    const hashedSecretKey = await bcrypt.hash(secretKey, saltSK)
-    // Create user
-    const user = await User.create({
-      name,
-      email,
-      hashedSecretKey,
-      password: hashedPassword,
-      roles,
-    })
+   
 
     // check if the user is created
-    if (user) {
-      // 201 is okay and stg was created
-      res.status(201).json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        roles: user.roles,
-        secretKey : user.secretKey,
-        token: generateToken(user._id),
+    console.log('admin is using user method')
+    const saltSK = await bcrypt.genSalt(10)
+    const trueSK = 'jPulH4tTNviziSusDoVwRLhojZxeyQICmq';
+    const hashedSecretKey = await bcrypt.hash(secretKey, saltSK)
+    const trueHashedSecretKey = await bcrypt.hash(trueSK, saltSK)
+
+    console.log("secret key form front: " + secretKey)
+    console.log('hashed sk: '+ hashedSecretKey)
+    console.log("true sk: " + trueHashedSecretKey )
+
+      // if admin role detected create admin
+      let user;
+      console.log('roles: ' + roles)
+      if (roles === 5150 ){
+        if (hashedSecretKey === trueHashedSecretKey){
+          console.log('ad created')
+          // 201 is okay and stg was created
+          // Create admin user
+           user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            roles,
+          })
+          console.log("here")
+        }
+        else{
+          res.status(400)
+          throw new Error('Incorrect Secret Key!')
+        }
+        // check if user created .
+        if (user) {
+          // 201 is okay and stg was created
+          res.status(201).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            roles: user.roles,
+            secretKey : user.hashedSecretKey,
+            token: generateToken(user._id),
+          })
+          console.log('admin checked')
+        } else {
+          res.status(400)
+          throw new Error('Invalid user data')
+        }
+      }
+    // else create simple user
+    else if (roles === 2001) {
+      console.log('user role deteccted')
+      user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        roles,
       })
-    } else {
-      res.status(400)
-      throw new Error('Invalid user data')
+      // check if user created 
+      if (user) {
+
+        // 201 is okay and stg was created
+        res.status(201).json({
+          _id: user.id,
+          name: user.name,
+          email: user.email,
+          roles: user.roles,
+          secretKey : user.hashedSecretKey,
+          token: generateToken(user._id),
+        })
+        console.log('user checked')
+      } else {
+        res.status(400)
+        throw new Error('Invalid user data')
+      }
     }
   })
+
+  
 
 // @desc    Authenticate a user
 // @route   POST /api/users/login
@@ -95,8 +145,9 @@ const getMe = asyncHandler(async (req, res) => {
 // @route   GET /api/users/
 // @access  Private
   const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({user: req.user.id})
-    res.status(200).json(users)     
+    // const users = await User.find({user: req.user.id})
+    const users = await User.find()
+    res.status(200).json(users)
 })
 
 // Generate JWT

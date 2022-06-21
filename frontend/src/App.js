@@ -18,11 +18,10 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/login' element={<Login/>}></Route>
-            <Route path='/unauthorized' element={<Unauthorized/>}></Route>
-            <Route path='/registerAdmin' element={<RegisterAdmin/>}></Route>
-            <Route path='/register' element={<Register/>}></Route>  
-            {/* This routes needs to be protected */}
+              <Route path='/login' element={<Login/>}></Route>
+              <Route path='/unauthorized' element={<Unauthorized/>}></Route>
+              <Route path='/registerAdmin' element={<RegisterAdmin/>}></Route>
+              <Route path='/register' element={<Register/>}></Route>  
             <Route element={< ProtectUsers />} >
               <Route path='/' element={<Dashboard />}></Route>
               <Route path='/createSchool' element={<CreateSchool/>}></Route>
@@ -30,7 +29,7 @@ function App() {
             </Route>
             <Route element={<ProtectAdmin /> } >
               <Route path='/adminDashboard' element={<AdminDashboard/>} />
-            </Route >
+            </Route>
           </Routes>
         </div>
       </Router>

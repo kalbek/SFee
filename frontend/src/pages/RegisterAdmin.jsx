@@ -29,7 +29,7 @@ function RegisterAdmin() {
   const [matchFocus, setMatchFocus] = useState(false);
   const [someMessage, setMessage] = useState("");
   const [secretKey, setSecretKey] = useState("");
-  const [validSecretKey, setvalidSecretKey] = useState("");
+  const [validSecretKey, setvalidSecretKey] = useState(false);
   const [secretKeyFocus, setsecretKeyFocus] = useState(false);
 
   const userNameErrMsg =
@@ -48,7 +48,7 @@ function RegisterAdmin() {
   // To check form fields validity
   const allFormFieldsAreValid = () => {
     const validity =
-      validName && validPwd && validEmail && validMatch ? true : false;
+      validName && validPwd && validEmail && validMatch && validSecretKey ? true : false;
     return validity;
   };
 
@@ -95,7 +95,7 @@ function RegisterAdmin() {
 
   // validate secret key
   useEffect(() => {
-    if(secretKey) setvalidSecretKey(true)
+    (secretKey) ? setvalidSecretKey(true) : setvalidSecretKey(false)
   },[secretKey])
   // for invalid name error message
   useEffect(() => {
@@ -142,12 +142,17 @@ function RegisterAdmin() {
         secretKey,
       };
       if (allFormFieldsAreValid()) {
-        dispatch(register(userData));
-        setSuccess(true);
-        for (const [key, value] of Object.entries(user)) {
-          console.log(` ${key}: ${value}`);
-        }
+        console.log('valid')
+        console.log('ya')
+          dispatch(register(userData));
+          setSuccess(true);
       }
+        else {
+          setMessage('Incorrect Secret Key')
+          setvalidSecretKey(false)
+          setSecretKey('')
+        }
+      
     } catch (err) {
       if (!err?.response) {
         setMessage("No Server Response");
