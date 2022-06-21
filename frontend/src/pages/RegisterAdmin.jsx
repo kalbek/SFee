@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import {FaUser} from "react-icons/fa";
-import { register, reset } from "../features/auth/authSlice";
+import { register } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
 
 function RegisterAdmin() {
@@ -142,8 +142,6 @@ function RegisterAdmin() {
         secretKey,
       };
       if (allFormFieldsAreValid()) {
-        console.log('valid')
-        console.log('ya')
           dispatch(register(userData));
           setSuccess(true);
       }

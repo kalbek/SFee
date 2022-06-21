@@ -26,13 +26,11 @@ function Dashboard() {
       }
     }
     if (!user) {
-      navigate('/login')
+      // navigate('/login')
     }
     if (user) {
     dispatch(getSchools())
-  }
-  
-
+    }
     return () => {
       dispatch(reset())
     }

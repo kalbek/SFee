@@ -30,19 +30,13 @@ function Login() {
   useEffect(() => {
     if (isError) {
       setMessage(message)
-      setErrMsg(message)
-      // toast.error(message)
     }
-
     if (isSuccess || user) {
-      const userRole = {...user}
-      // console.log("user roles.roles: " + userRole.roles)
-      if (userRole.roles === 5150)
+      if (user.roles === 5150)
         navigate('/admindashboard')
       else {
         navigate('/')
       }
-      // (userRole.roles === 5150 ? navigate('/admin') : navigate('/'))
     }
     dispatch(reset())
   }, [ user, isError, isSuccess, message, navigate, dispatch])

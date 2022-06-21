@@ -34,22 +34,15 @@ const registerUser = asyncHandler(async (req, res) => {
    
 
     // check if the user is created
-    console.log('admin is using user method')
     const saltSK = await bcrypt.genSalt(10)
     const trueSK = 'jPulH4tTNviziSusDoVwRLhojZxeyQICmq';
     const hashedSecretKey = await bcrypt.hash(secretKey, saltSK)
     const trueHashedSecretKey = await bcrypt.hash(trueSK, saltSK)
 
-    console.log("secret key form front: " + secretKey)
-    console.log('hashed sk: '+ hashedSecretKey)
-    console.log("true sk: " + trueHashedSecretKey )
-
       // if admin role detected create admin
       let user;
-      console.log('roles: ' + roles)
       if (roles === 5150 ){
         if (hashedSecretKey === trueHashedSecretKey){
-          console.log('ad created')
           // 201 is okay and stg was created
           // Create admin user
            user = await User.create({
@@ -58,7 +51,6 @@ const registerUser = asyncHandler(async (req, res) => {
             password: hashedPassword,
             roles,
           })
-          console.log("here")
         }
         else{
           res.status(400)
@@ -75,7 +67,6 @@ const registerUser = asyncHandler(async (req, res) => {
             secretKey : user.hashedSecretKey,
             token: generateToken(user._id),
           })
-          console.log('admin checked')
         } else {
           res.status(400)
           throw new Error('Invalid user data')
@@ -83,7 +74,6 @@ const registerUser = asyncHandler(async (req, res) => {
       }
     // else create simple user
     else if (roles === 2001) {
-      console.log('user role deteccted')
       user = await User.create({
         name,
         email,
@@ -102,7 +92,6 @@ const registerUser = asyncHandler(async (req, res) => {
           secretKey : user.hashedSecretKey,
           token: generateToken(user._id),
         })
-        console.log('user checked')
       } else {
         res.status(400)
         throw new Error('Invalid user data')

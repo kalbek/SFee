@@ -7,17 +7,15 @@ const ProtectAdmin = () => {
     if (user)
       role = Object.values(user);
     const location = useLocation();
-    // console.log('role === 5150' + role[3] === 5150)
     return (
       <>
        { 
-            !user 
-            ? <Navigate to="/login" state={{ from: location }} replace />
-            : user && role[3] === 5150  
-                ? <Outlet/> 
-                : <Navigate to="/unauthorized" />
-           }
-         
+          !user 
+          ? <Navigate to="/login" />
+          : user && role[3] === 5150  
+              ? <Outlet/> 
+              : <Navigate to="/unauthorized" />
+        }
       </>
   )
 }

@@ -16,15 +16,13 @@ function AdminDashboard() {
       if (!user) {
       }
     }
-    if (!user) {
-      navigate('/login')
-    }
+    // if (!user) {
+    //   navigate('/login')
+    // }
     if (user) {
-    // navigate('/login')
-    dispatch(getSchools())
-    dispatch(getUsers())
+    // dispatch(getSchools())
+    // dispatch(getUsers())
   }
-
     return () => {
       dispatch(reset())
     }

@@ -89,7 +89,6 @@ function RegisterStudent() {
             <div className="form-group">
                   {school}
                 <select  onChange={handleSchoolSelection}>
-                  {/* {console.log(school)} */}
                   {schools.map((school) =>{
                     <h4>
                       {school}

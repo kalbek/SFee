@@ -7,13 +7,11 @@ const ProtectUsers = () => {
   if (user)
     role = Object.values(user);
   const location = useLocation();
-  // console.log('role === 2001: ' + role[3] === 2001)
-  // console.log(user)
   return (
     <>
       {   
         !user 
-        ? <Navigate to="/login" state={{ from: location }} replace/>
+        ? <Navigate to="/login" />
         : user && role[3] === 2001  
             ? <Outlet/> 
             : <Navigate to="/unauthorized" />
